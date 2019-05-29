@@ -1,0 +1,4 @@
+.vscode
+config.toml
+cmd/mailinone/mailinone
+main
