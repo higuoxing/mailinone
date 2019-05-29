@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/vgxbj/mailinone/pkg/config"
+	"github.com/vgxbj/mailinone/internal/config"
 )
 
 var (
@@ -35,6 +35,4 @@ func main() {
 		fmt.Printf("%v\n", err)
 		os.Exit(1)
 	}
-
-	fmt.Println(configs)
 }

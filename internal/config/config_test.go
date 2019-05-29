@@ -3,7 +3,7 @@ package config_test
 import (
 	"testing"
 
-	"github.com/vgxbj/mailinone/pkg/config"
+	"github.com/vgxbj/mailinone/internal/config"
 )
 
 func TestEmailsConfig(t *testing.T) {
