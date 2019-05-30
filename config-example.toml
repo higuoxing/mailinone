@@ -1,22 +1,22 @@
-[[Mailbox]]
+[[Account]]
     Username = "u@somewhere.com"
     Password = "password0"
     EnableSSL = true
-    [Mailbox.IncomingMailServer]
+    [Account.IncomingMailServer]
         Hostname = "imap.somewhere.com"
         Port = 993
-    [Mailbox.OutgoingMailServer]
+    [Account.OutgoingMailServer]
         Hostname = "smtp.somewhere.com"
         Port = 465
 
-[[Mailbox]]
+[[Account]]
     Username = "u@somewhere.net"
     Password = "password1"
     EnableSSL = true
     SkipCertificateVerification = true
-    [Mailbox.IncomingMailServer]
+    [Account.IncomingMailServer]
         Hostname = "imap.somewhere.net"
         Port = 993
-    [Mailbox.OutgoingMailServer]
+    [Account.OutgoingMailServer]
         Hostname = "smtp.somewhere.net"
         Port = 465
