@@ -26,3 +26,13 @@ func NewClient(acc *config.Account) (*Client, error) {
 
 	return &Client{imapClient, smtpClient}, nil
 }
+
+// IMAPClient ... Get SMTP client.
+func (c *Client) IMAPClient() *imap.Client {
+	return c.imapClient
+}
+
+// SMTPClient ... Get IMAP client.
+func (c *Client) SMTPClient() *smtp.Client {
+	return c.smtpClient
+}

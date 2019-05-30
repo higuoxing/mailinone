@@ -3,9 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/vgxbj/mailinone/internal/config"
+	"github.com/vgxbj/mailinone/internal/mail"
 )
 
 var (
@@ -36,4 +38,26 @@ func main() {
 		os.Exit(1)
 	}
 
+	acc := configs.Accounts[0]
+	c, err := mail.NewClient(&acc)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	imapc := c.IMAPClient()
+	err = imapc.Login()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer imapc.Logout()
+
+	mbs, err := imapc.GetMailboxes()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, mb := range mbs {
+		fmt.Println(mb.Name)
+	}
 }

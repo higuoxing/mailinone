@@ -3,6 +3,8 @@ package imap
 import (
 	"crypto/tls"
 
+	"github.com/emersion/go-imap"
+
 	"github.com/emersion/go-imap/client"
 	"github.com/vgxbj/mailinone/internal/config"
 )
@@ -12,6 +14,9 @@ type Client struct {
 	account *config.Account
 	client  *client.Client
 }
+
+// MailboxInfo ... Alias for imap.MailboxInfo
+type MailboxInfo = imap.MailboxInfo
 
 // NewClient ... Generate new imap client.
 func NewClient(acc *config.Account) (*Client, error) {
@@ -45,4 +50,25 @@ func (c *Client) Login() error {
 // Logout ... Logout imap mail server.
 func (c *Client) Logout() error {
 	return c.client.Logout()
+}
+
+// GetMailboxes ... Get mailboxes of current account.
+func (c *Client) GetMailboxes() ([]*MailboxInfo, error) {
+	var mbs []*MailboxInfo
+	var mbch = make(chan *MailboxInfo, 5)
+	var done = make(chan error, 1)
+
+	go func() {
+		done <- c.client.List("", "*", mbch)
+	}()
+
+	for mb := range mbch {
+		mbs = append(mbs, mb)
+	}
+
+	if err := <-done; err != nil {
+		return nil, err
+	}
+
+	return mbs, nil
 }
