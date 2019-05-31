@@ -38,7 +38,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	acc := configs.Accounts[0]
+	acc := configs.Accounts[1]
 	c, err := mail.NewClient(&acc)
 	if err != nil {
 		log.Fatal(err)
@@ -59,5 +59,14 @@ func main() {
 
 	for _, mb := range mbs {
 		fmt.Println(mb.Name)
+	}
+
+	msgs, err := imapc.FetchMailsOf("INBOX", 1, 10)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, m := range msgs {
+		fmt.Println(m.Envelope.Subject)
 	}
 }
